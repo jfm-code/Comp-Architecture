@@ -1,3 +1,5 @@
+// Copywright 2024 Jessica Vu
+// Computer Architecture Assignment 1
 #include <stdio.h>
 
 int main(int argc, char *argv[])
@@ -46,21 +48,26 @@ int main(int argc, char *argv[])
         } bit;
     } float_32;
 
-    char bit_string[43];
     int i;
+    char bit_string[41];
+    // Reason why we chose size=41 is because:
+        // 1 place is for null terminator, 
+        // 8 places are for empty spaces between bits,
+        // 32 places are for the floating point (32 bits)
 
     // Initialize bit_string with spaces
-    for (i = 0; i < 42; i++)
+    for (i = 0; i < 40; i++)
     {
         bit_string[i] = ' ';
     }
-    bit_string[42] = '\0'; // Null-terminate the string
+    bit_string[40] = '\0'; // Null-terminate the string
 
     // Ask user for input
     printf("\nplease enter a floating point number and new-line: ");
     scanf("%f", &float_32.floating_value_in_32_bits);
 
     // Create the binary representation
+    // Indexes 1,6,11,15,20,25,30,35 are for spaces in the binary string (to read easier)
     bit_string[0] = float_32.bit.b31 ? '1' : '0';
 
     bit_string[2] = float_32.bit.b30 ? '1' : '0';
@@ -102,30 +109,28 @@ int main(int argc, char *argv[])
     bit_string[38] = float_32.bit.b1 ? '1' : '0';
     bit_string[39] = float_32.bit.b0 ? '1' : '0';
 
-    // Print the extracted components
-    printf("\nthe floating value for %g is broken out as:\n", float_32.floating_value_in_32_bits);
+    printf("\nthe floating value entered is broken out as:\n");
 
-    // Mantissa
-    printf("mantissa: 0x%06x   or: %c%c%c %c%c%c%c %c%c%c%c %c%c%c%c %c%c%c%c %c%c%c%c\n",
-           float_32.f_bits.mantissa,
-           bit_string[12], bit_string[13], bit_string[14], bit_string[16],
-           bit_string[17], bit_string[18], bit_string[19], bit_string[21],
-           bit_string[22], bit_string[23], bit_string[24], bit_string[26],
-           bit_string[27], bit_string[28], bit_string[29], bit_string[31],
-           bit_string[32], bit_string[33], bit_string[34], bit_string[36],
-           bit_string[37], bit_string[38], bit_string[39]);
+    // Mantissa (32 bits)
+    printf("    %-10s: 0x%06x   or:             %c%c%c %c%c%c%c %c%c%c%c %c%c%c%c %c%c%c%c %c%c%c%c\n",
+        "mantissa", float_32.f_bits.mantissa,
+        bit_string[12], bit_string[13], bit_string[14], bit_string[16],
+        bit_string[17], bit_string[18], bit_string[19], bit_string[21],
+        bit_string[22], bit_string[23], bit_string[24], bit_string[26],
+        bit_string[27], bit_string[28], bit_string[29], bit_string[31],
+        bit_string[32], bit_string[33], bit_string[34], bit_string[36],
+        bit_string[37], bit_string[38], bit_string[39]);
 
-    // Exponent
-    printf("exponent: 0x%02x     or: %c%c%c%c %c%c%c%c\n",
-           float_32.f_bits.exponent,
-           bit_string[2], bit_string[3], bit_string[4], bit_string[5],
-           bit_string[7], bit_string[8], bit_string[9], bit_string[10]);
+    // Exponent (8 bits)
+    printf("    %-10s: 0x%02x       or:   %c%c%c%c %c%c%c%c\n",
+        "exponent", float_32.f_bits.exponent,
+        bit_string[2], bit_string[3], bit_string[4], bit_string[5],
+        bit_string[7], bit_string[8], bit_string[9], bit_string[10]);
 
-    // Sign
-    printf("sign: %d          or: %c\n", float_32.f_bits.sign, bit_string[0]);
+    // Sign (1 bit)
+    printf("    %-10s: %d          or: %c\n", "sign", float_32.f_bits.sign, bit_string[0]);
 
-    // Final base 10 and binary output
-    printf("\nin base 10: %f   or: %s\n", float_32.floating_value_in_32_bits, bit_string);
+    printf("    %-10s: %f   or: %s\n", "in base 10", float_32.floating_value_in_32_bits, bit_string);
 
     return 0;
 }
