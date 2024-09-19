@@ -119,6 +119,14 @@ int main(int argc, char *argv[]) {
     //else just clear HB, leaving 23 live bits for the result mantissa
     float_32_rslt.f_bits.mantissa = (mant_res & ~(1<<23));
 
+    // Check for overflow in the exponent (handle the NaN case)
+    if (float_32_rslt.f_bits.exponent >= 255) {
+        // Set the result to infinity if exponent overflows
+        float_32_rslt.f_bits.mantissa = 0;  // Mantissa for infinity is 0
+        float_32_rslt.f_bits.exponent = 255;  // Exponent for infinity
+        // No need to set the sign bit because we are only adding positive numbers
+    }
+
     // Initialize bit_string to print binary value of 2 floating points
     for (i = 0; i < 40; i++) {
         bit_string_1[i] = ' ';
