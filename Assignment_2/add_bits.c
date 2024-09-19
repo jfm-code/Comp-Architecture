@@ -178,6 +178,16 @@ int main(int argc, char *argv[]) {
             bit_string_2[i + 6] = bit_s2 ? '1' : '0';
             bit_string_res[i + 6] = bit_res ? '1' : '0';
         }
+        else if (i >= 24 && i <= 27) {
+            bit_string_1[i + 7] = bit_s1 ? '1' : '0'; // Mantissa bits
+            bit_string_2[i + 7] = bit_s2 ? '1' : '0';
+            bit_string_res[i + 7] = bit_res ? '1' : '0';
+        }
+        else if (i >= 28 && i <= 31) {
+            bit_string_1[i + 8] = bit_s1 ? '1' : '0'; // Mantissa bits
+            bit_string_2[i + 8] = bit_s2 ? '1' : '0';
+            bit_string_res[i + 8] = bit_res ? '1' : '0';
+        }
     }
     
     hardware_result = float_32_s1.floating_value_in_32_bits + float_32_s2.floating_value_in_32_bits;
