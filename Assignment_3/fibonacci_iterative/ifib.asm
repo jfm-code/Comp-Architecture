@@ -42,7 +42,7 @@ FIBZER:	LODD c0:
 FIBONE:	LODD c1:
 	RETN			; AC = 1 for fib(1)
 DONE:	HALT	 
-.LOC 	200			; locate data beginning at 100
+.LOC 	100			; locate data beginning at 100
 d0:  	3			; array of args for fib function
      	9
      	18
